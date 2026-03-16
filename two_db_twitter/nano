@@ -1,0 +1,25 @@
+class PostRouter:
+    """
+    Маршрутизация: модель Post -> PostgreSQL, всё остальное -> MySQL.
+    """
+    def db_for_read(self, model, **hints):
+        if model._meta.app_label == 'posts' and model.__name__ == 'Post':
+            return 'postgres'
+        return None
+
+    def db_for_write(self, model, **hints):
+        if model._meta.app_label == 'posts' and model.__name__ == 'Post':
+            return 'postgres'
+        return None
+
+    def allow_relation(self, obj1, obj2, **hints):
+        # Разрешаем связи только между объектами из одной базы
+        db_set = {'default', 'postgres'}
+        if obj1._state.db in db_set and obj2._state.db in db_set:
+            return True
+        return None
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        if app_label == 'posts':
+            return db == 'postgres'   # миграции приложения posts только в postgres
+        return db == 'default'        # всё остальное (включая admin, auth) в default (MySQL)

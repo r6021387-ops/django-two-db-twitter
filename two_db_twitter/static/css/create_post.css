@@ -1,0 +1,43 @@
+.create-post-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: 1px solid #e6ecf0;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.create-post-container h1 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    color: #14171a;
+}
+
+.create-post-container form {
+    width: 100%;
+}
+
+.create-post-container input,
+.create-post-container select,
+.create-post-container textarea {
+    border-radius: 30px;
+    border: 1px solid #e6ecf0;
+    padding: 10px 16px;
+    width: 100%;
+}
+
+.create-post-container textarea {
+    border-radius: 16px;
+    min-height: 120px;
+}
+
+.image-upload {
+    background-color: #f7f9fa;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px dashed #1da1f2;
+    text-align: center;
+    color: #657786;
+}

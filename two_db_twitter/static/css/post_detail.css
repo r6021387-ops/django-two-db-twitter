@@ -1,0 +1,52 @@
+
+
+.post-detail-card {
+    border: 1px solid #e6ecf0;
+    border-radius: 16px;
+    background-color: #ffffff;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.comment-section {
+    background-color: #ffffff;
+    border: 1px solid #e6ecf0;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.comment {
+    border-left: 3px solid #1da1f2;
+    padding-left: 16px;
+    margin-bottom: 20px;
+}
+
+.comment strong {
+    color: #14171a;
+    font-weight: 600;
+}
+
+.comment small {
+    color: #657786;
+    margin-left: 8px;
+}
+
+.comment p {
+    margin-top: 8px;
+    margin-bottom: 0;
+    color: #14171a;
+}
+
+.comment-form {
+    margin-top: 24px;
+    background-color: #f7f9fa;
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.comment-form textarea {
+    border-radius: 16px;
+    border: 1px solid #e6ecf0;
+    padding: 12px;
+}

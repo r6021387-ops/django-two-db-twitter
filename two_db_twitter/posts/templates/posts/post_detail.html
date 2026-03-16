@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пост</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'post_list' %}">MicroBlog</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><span class="nav-link">{{ user.username }}</span></li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'create_post' %}">Новый пост</a></li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link">Выйти</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ author_name }}</h5>
+                {% if post.category %}<span class="badge bg-info">{{ post.category.name }}</span>{% endif %}
+                <p class="card-text">{{ post.content }}</p>
+                {% for img in post.images.all %}
+                    <img src="{{ img.image.url }}" style="max-width:300px;" class="img-fluid mb-2">
+                {% endfor %}
+                <small class="text-muted">{{ post.created_at|date:"d.m.Y H:i" }}</small>
+            </div>
+        </div>
+
+        <h3 class="mt-4">Комментарии</h3>
+        {% for comment in comments_data %}
+            <div class="comment">
+                <strong>{{ comment.author_name }}</strong>
+                <small>{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+                <p>{{ comment.content }}</p>
+            </div>
+        {% empty %}
+            <p>Пока нет комментариев.</p>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+            <h4 class="mt-4">Добавить комментарий</h4>
+            <form method="post" action="{% url 'add_comment' post.id %}">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'login' %}">Войдите</a>, чтобы комментировать.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
